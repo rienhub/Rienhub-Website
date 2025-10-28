@@ -3,851 +3,1026 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RienHub — Smart Experiences by RIEN X</title>
-    <meta name="description" content="RienHub connects innovation, mobility, and design into one smart ecosystem.">
-    
+    <title>RIEN Hub — The Future, Connected</title>
+
+    <!-- 1. Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- 2. Google Fonts (Inter for Headings, Roboto for Body) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
-    
-    <style>
-        /* ======== 1. DESIGN SYSTEM & VARIABLES ======== */
-        :root {
-            /* Colors */
-            --color-primary: #0B2545; /* Deep Navy */
-            --color-accent1: #00C2A8; /* Teal Mint */
-            --color-accent2: #3DD3FF; /* Cyan Light */
-            --color-neutral-dark: #111827; /* Almost Black */
-            --color-neutral-gray: #F3F6F9; /* Off-white */
-            --color-text-light: #ffffff;
-            --color-text-body: #4B5563; /* Gray for body text */
-            
-            /* Typography */
-            --font-heading: 'Inter', sans-serif;
-            --font-body: 'Roboto', sans-serif;
-            
-            /* Layout */
-            --container-width: 1140px;
-            --header-height: 70px;
-            --radius: 12px; /* Card rounded corners */
-            --radius-btn: 8px; /* Button rounded-md */
-        }
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 
-        /* ======== 2. RESET & BASE STYLES ======== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    <!-- 3. Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
 
+    <!-- 4. Tailwind Theme Configuration (Light Mode) -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': '#0B2545', // Deep Navy
+                        'accent-1': '#00C2A8', // Teal Mint
+                        'accent-2': '#3DD3FF', // Cyan Light
+                        'neutral-dark': '#111827',
+                        'neutral-gray': '#F3F6F9',
+                        'neutral-text': '#4B5563', // For body text
+                        'danger': '#FF6B6B',
+                        'white': '#FFFFFF',
+                    },
+                    fontFamily: {
+                        sans: ['Roboto', 'sans-serif'],
+                        title: ['Inter', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                        'lines-move': 'linesMove 8s linear infinite',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        linesMove: {
+                            '0%': { backgroundPosition: '0 0' },
+                            '100%': { backgroundPosition: '100px 100px' },
+                        }
+                    },
+                }
+            }
+        }
+    </script>
+
+    <!-- 5. Custom Global Styles (Light Mode) -->
+    <style type="text/css">
+        /* Base Styling */
         html {
             scroll-behavior: smooth;
         }
-
         body {
-            font-family: var(--font-body);
-            font-size: 16px;
-            line-height: 1.6;
-            color: var(--color-text-body);
-            background-color: #ffffff; /* Use white as base, gray for sections */
-            -webkit-font-smoothing: antialiased;
+            background-color: theme(colors.neutral-gray);
+            color: theme(colors.neutral-text);
+            font-family: theme(fontFamily.sans);
         }
-
-        .container {
-            max-width: var(--container-width);
-            margin: 0 auto;
-            padding: 0 1.5rem;
-        }
-
-        .content-section {
-            padding: 5rem 0;
-        }
-        
-        .bg-light-gray {
-            background-color: var(--color-neutral-gray);
-        }
-
-        img, svg {
-            max-width: 100%;
-            height: auto;
-        }
-        
-        /* ======== 3. TYPOGRAPHY ======== */
-        h1, h2, h3, h4 {
-            font-family: var(--font-heading);
+        h1, h2, h3, h4, h5, h6 {
+            font-family: theme(fontFamily.title);
+            color: theme(colors.primary);
             font-weight: 700;
-            color: var(--color-primary);
-            line-height: 1.3;
-            margin-bottom: 1rem;
         }
 
-        h1 { font-size: 2.5rem; } /* 40px */
-        h2 { font-size: 2.125rem; } /* 34px */
-        h3 { font-size: 1.5rem; } /* 24px */
-        h4 { font-size: 1.125rem; } /* 18px */
-        
-        p {
-            margin-bottom: 1.5rem;
+        /* Hero Background */
+        .hero-bg {
+            position: relative;
+            background-color: theme(colors.primary);
+            overflow: hidden;
         }
-        
-        a {
-            color: var(--color-accent1);
-            text-decoration: none;
-            font-weight: 500;
-        }
-        
-        .subheadline {
-            font-size: 1.125rem;
-            color: var(--color-text-body);
-            max-width: 550px;
-        }
-        
-        .text-gradient {
-            background: linear-gradient(90deg, var(--color-accent1), var(--color-accent2));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        .section-header {
-            text-align: center;
-            max-width: 600px;
-            margin: 0 auto 3rem auto;
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            background-image: 
+                linear-gradient(rgba(61, 211, 255, 0.07) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(61, 211, 255, 0.07) 1px, transparent 1px);
+            background-size: 60px 60px;
+            animation: linesMove 6s linear infinite;
+            opacity: 0.5;
         }
 
-        /* ======== 4. COMPONENTS: BUTTONS & CARDS ======== */
-        
-        /* Buttons */
+        /* Button Styles */
         .btn {
             display: inline-block;
-            padding: 0.75rem 1.5rem;
-            font-family: var(--font-heading);
+            font-family: theme(fontFamily.title);
             font-weight: 600;
-            font-size: 1rem;
-            border-radius: var(--radius-btn);
-            cursor: pointer;
-            text-decoration: none;
-            border: 2px solid transparent;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            padding: 0.75rem 1.5rem; /* py-3 px-6 */
+            border-radius: 0.75rem; /* rounded-xl */
+            transition: all 0.3s ease-in-out;
+            text-align: center;
         }
         .btn-primary {
-            background-color: var(--color-accent1);
-            color: var(--color-neutral-dark);
+            background-color: theme(colors.primary);
+            color: theme(colors.white);
         }
         .btn-primary:hover {
-            transform: scale(1.03);
-            box-shadow: 0 4px 15px rgba(0, 194, 168, 0.3);
+            background-color: theme(colors.primary);
+            opacity: 0.9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(11, 37, 69, 0.2);
         }
-        .btn-secondary {
-            background-color: transparent;
-            border-color: var(--color-accent1);
-            color: var(--color-accent1);
+        .btn-accent-1 {
+            background-color: theme(colors.accent-1);
+            color: theme(colors.white);
         }
-        .btn-secondary:hover {
-            transform: scale(1.03);
-            background-color: rgba(0, 194, 168, 0.1);
+        .btn-accent-1:hover {
+            background-color: theme(colors.accent-1);
+            opacity: 0.9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 194, 168, 0.2);
         }
-        
-        /* Cards (Ecosystem, Features, Blog) */
-        .card {
-            background-color: #ffffff;
-            border-radius: var(--radius);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-            overflow: hidden;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+         .btn-accent-2 {
+            background-color: theme(colors.accent-2);
+            color: theme(colors.primary);
         }
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
-        }
-        .card-content {
-            padding: 1.5rem;
-        }
-        .card-icon {
-            font-size: 2.5rem;
-            color: var(--color-accent1);
-            margin-bottom: 1rem;
-        }
-        .card-image {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-        }
-        .card-link {
-            display: inline-block;
-            margin-top: 1rem;
-            font-weight: 700;
-        }
-
-        /* ======== 5. LAYOUT: HEADER & NAV ======== */
-        .main-header {
-            position: sticky;
-            top: 0;
-            width: 100%;
-            height: var(--header-height);
-            display: flex;
-            align-items: center;
-            background-color: rgba(255, 255, 255, 0.85); /* Glass accent */
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-bottom: 1px solid #e5e7eb;
-            z-index: 1000;
-        }
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-        }
-        .logo a {
-            font-family: var(--font-heading);
-            font-weight: 700;
-            font-size: 1.5rem;
-            color: var(--color-primary);
-            text-decoration: none;
+        .btn-accent-2:hover {
+            background-color: theme(colors.accent-2);
+            opacity: 0.9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(61, 211, 255, 0.2);
         }
         
-        /* Desktop Nav */
-        .nav-links {
-            display: none; /* Mobile-first: hidden */
-            list-style: none;
-            gap: 1.5rem;
-            align-items: center;
-        }
-        .nav-links a {
-            color: var(--color-primary);
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-        .nav-cta {
-            padding: 0.5rem 1rem;
-            font-size: 0.9rem;
-        }
-        
-        /* Mobile Nav Toggle Button */
-        .mobile-nav-toggle {
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 0.5rem;
-        }
-        .mobile-nav-toggle .icon-bar {
-            display: block;
-            width: 24px;
-            height: 3px;
-            background-color: var(--color-primary);
-            margin: 5px 0;
+        /* Card Style */
+        .card-light {
+            background-color: theme(colors.white);
+            border: 1px solid #E5E7EB; /* gray-200 */
+            border-radius: 1rem; /* rounded-2xl */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
             transition: all 0.3s ease;
         }
-        
-        /* Mobile Menu Drawer */
-        .mobile-menu {
-            position: fixed;
-            top: var(--header-height);
-            left: 0;
-            width: 100%;
-            height: calc(100vh - var(--header-height));
-            background-color: #ffffff;
-            z-index: 999;
-            
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 2rem;
-            gap: 1.5rem;
-            
-            /* Hidden by default */
-            opacity: 0;
-            transform: translateY(-20px);
-            pointer-events: none;
-            transition: opacity 0.3s ease, transform 0.3s ease;
+        .card-light:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+            border-color: theme(colors.accent-1);
         }
-        .mobile-menu.active {
+        
+        /* Scroll-Triggered Fade-in Animation */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in-up.is-visible {
             opacity: 1;
             transform: translateY(0);
-            pointer-events: auto;
         }
-        .mobile-menu a {
-            font-size: 1.25rem;
-            color: var(--color-primary);
+
+        /* Custom Timeline */
+        .timeline-item {
+            position: relative;
+            padding-left: 3rem; /* 48px */
+            padding-bottom: 2rem; /* 32px */
+            border-left: 2px solid theme(colors.accent-1);
+        }
+        .timeline-item:last-child {
+            border-left-color: transparent;
+            padding-bottom: 0;
+        }
+        .timeline-dot {
+            position: absolute;
+            left: -0.875rem; /* -14px */
+            top: 0;
+            width: 1.75rem; /* 28px */
+            height: 1.75rem; /* 28px */
+            border-radius: 9999px;
+            background-color: theme(colors.neutral-gray);
+            border: 4px solid theme(colors.accent-1);
+            box-shadow: 0 0 15px theme(colors.accent-1 / 0.5);
+        }
+        
+        /* Form Styling */
+        .form-input {
+            background-color: theme(colors.white);
+            border: 1px solid #D1D5DB; /* gray-300 */
+            border-radius: 0.5rem; /* rounded-lg */
+            padding: 0.75rem 1rem; /* px-4 py-3 */
+            color: theme(colors.neutral-dark);
+            transition: all 0.3s ease;
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: theme(colors.accent-1);
+            box-shadow: 0 0 0 3px theme(colors.accent-1 / 0.3);
+        }
+        .form-select {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2300C2A8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+        }
+        .form-select option {
+            background-color: theme(colors.white);
+            color: theme(colors.neutral-dark);
+        }
+
+        /* Simple animated underline */
+        .animated-underline {
+            position: relative;
+            display: inline-block;
+        }
+        .animated-underline::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 3px;
+            bottom: -6px;
+            left: 0;
+            background-color: theme(colors.accent-1);
+            transform: scaleX(0);
+            transform-origin: bottom right;
+            transition: transform 0.3s ease-out;
+        }
+        .is-visible .animated-underline::after,
+        .animated-underline:hover::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+
+        /* Active Nav Link */
+        .nav-link.active {
+            color: theme(colors.accent-1);
             font-weight: 600;
         }
-        .mobile-menu .btn {
-            width: 100%;
-            text-align: center;
-        }
-        
-        /* Hamburger Animation */
-        .mobile-nav-toggle.active .icon-bar:nth-child(1) {
-            transform: translateY(8px) rotate(45deg);
-        }
-        .mobile-nav-toggle.active .icon-bar:nth-child(2) {
-            opacity: 0;
-        }
-        .mobile-nav-toggle.active .icon-bar:nth-child(3) {
-            transform: translateY(-8px) rotate(-45deg);
-        }
-
-        /* ======== 6. LAYOUT: SECTIONS ======== */
-        
-        /* Hero */
-        .hero-section {
-            padding: 4rem 0;
-        }
-        .hero-layout {
-            display: flex;
-            flex-direction: column; /* Mobile-first: stacked */
-            align-items: center;
-            gap: 2rem;
-            text-align: center;
-        }
-        .hero-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .hero-buttons {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1.5rem;
-            flex-direction: column; /* Stack buttons on mobile */
-            width: 100%;
-        }
-        .hero-microcopy {
-            font-size: 0.875rem; /* 14px */
-            color: var(--color-text-body);
-            margin-top: 1rem;
-        }
-        .hero-visual svg {
-            width: 100%;
-            max-width: 450px;
-        }
-        
-        /* Ecosystem, Features, Blog Grids */
-        .grid-3 {
-            display: grid;
-            grid-template-columns: 1fr; /* Mobile-first: 1 column */
-            gap: 1.5rem;
-        }
-        
-        /* How It Works (Timeline) */
-        .timeline {
-            display: flex;
-            flex-direction: column; /* Mobile-first: stacked */
-            gap: 2rem;
-            position: relative;
-        }
-        .timeline-step {
-            text-align: center;
-            padding: 1rem;
-        }
-        .timeline-step-icon {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background-color: var(--color-accent1);
-            color: var(--color-neutral-dark);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin: 0 auto 1rem auto;
-            border: 4px solid #fff;
-            box-shadow: 0 0 0 4px var(--color-accent1);
-        }
-        
-        /* CTA Band */
-        .cta-band {
-            background-color: var(--color-primary);
-            color: var(--color-text-light);
-            padding: 4rem 1.5rem;
-            text-align: center;
-            border-radius: var(--radius);
-        }
-        .cta-band h2 {
-            color: var(--color-text-light);
-        }
-        .cta-band .btn {
-            margin-top: 1.5rem;
-        }
-
-        /* Contact */
-        .contact-layout {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1.5rem;
-        }
-        
-        /* Footer */
-        .main-footer {
-            padding: 4rem 0 2rem 0;
-            background-color: var(--color-neutral-dark);
-            color: var(--color-neutral-gray);
-        }
-        .footer-grid {
-            display: flex;
-            flex-direction: column;
-            text-align: center;
-            gap: 2rem;
-        }
-        .footer-logo p {
-            font-size: 0.9rem;
-            color: #9ca3af;
-        }
-        .footer-links {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-        .footer-links a {
-            color: var(--color-neutral-gray);
-        }
-        .footer-socials {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-        }
-        .footer-socials a {
-            color: var(--color-neutral-gray);
-            font-size: 1.5rem;
-        }
-        .footer-copyright {
-            text-align: center;
-            margin-top: 3rem;
-            padding-top: 2rem;
-            border-top: 1px solid var(--color-text-body);
-            font-size: 0.875rem;
-            color: #9ca3af;
-        }
-
-        /* ======== 7. ANIMATIONS & RESPONSIVE ======== */
-        
-        /* Scroll Animation */
-        .animate-in {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
-        }
-        .animate-in.is-visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* --- Desktop Responsive --- */
-        @media (min-width: 768px) {
-            /* Typography */
-            h1 { font-size: 3rem; } /* 48px */
-            
-            /* Layout */
-            .content-section { padding: 6rem 0; }
-
-            /* Nav */
-            .mobile-nav-toggle { display: none; }
-            .mobile-menu { display: none; }
-            .nav-links { display: flex; }
-            
-            /* Hero */
-            .hero-layout {
-                flex-direction: row; /* Side-by-side */
-                text-align: left;
-                gap: 3rem;
-            }
-            .hero-content {
-                flex: 1;
-                align-items: flex-start;
-            }
-            .hero-visual {
-                flex: 1;
-            }
-            .hero-buttons {
-                flex-direction: row; /* Side-by-side */
-                width: auto;
-            }
-            
-            /* Grids */
-            .grid-3 { grid-template-columns: repeat(3, 1fr); }
-            .grid-features { grid-template-columns: repeat(2, 1fr); }
-            
-            /* Timeline */
-            .timeline {
-                flex-direction: row;
-                justify-content: space-between;
-                align-items: flex-start;
-            }
-            .timeline-step {
-                flex: 1;
-                position: relative;
-            }
-            /* Add connecting line for desktop */
-            .timeline-step:not(:last-child)::after {
-                content: '';
-                position: absolute;
-                top: 34px; /* Center on icon */
-                left: 50%;
-                width: 100%;
-                height: 2px;
-                background: linear-gradient(90deg, var(--color-accent1), var(--color-accent2));
-                opacity: 0.3;
-                z-index: -1;
-            }
-            
-            /* Footer */
-            .footer-grid {
-                flex-direction: row;
-                justify-content: space-between;
-                text-align: left;
-            }
-            .footer-links {
-                flex-direction: row;
-            }
-            .footer-socials {
-                justify-content: flex-start;
-            }
-        }
-        
-        /* Larger Desktop */
-        @media (min-width: 1024px) {
-            h1 { font-size: 3.5rem; }
-            .grid-features { grid-template-columns: repeat(4, 1fr); }
-        }
-
     </style>
 </head>
-<body>
 
-    <header class="main-header">
-        <nav class="navbar container">
-            <div class="logo">
-                <a href="#home">RienHub</a>
+<body class="bg-neutral-gray text-neutral-text font-sans overflow-x-hidden">
+
+    <!-- ======== HEADER & NAVIGATION ======== -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-neutral-gray/90 backdrop-blur-lg border-b border-gray-200">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <!-- Logo -->
+            <a href="#" class="font-title text-3xl font-bold text-primary nav-link" data-page="home">
+                RIEN<span class="text-accent-1">Hub</span>
+            </a>
+
+            <!-- Desktop Nav -->
+            <div class="hidden md:flex space-x-5 items-center">
+                <a href="#" class="font-title text-neutral-dark hover:text-accent-1 transition duration-300 nav-link" data-page="home">Home</a>
+                <a href="#" class="font-title text-neutral-dark hover:text-accent-1 transition duration-300 nav-link" data-page="about">About</a>
+                <a href="#" class="font-title text-neutral-dark hover:text-accent-1 transition duration-300 nav-link" data-page="ecosystem">Ecosystem</a>
+                <a href="https://mobility.rienhub.com" target="_blank" rel="noopener noreferrer" class="font-title text-neutral-dark hover:text-accent-1 transition duration-300">Mobility</a>
+                <a href="https://studio.rienhub.com" target="_blank" rel="noopener noreferrer" class="font-title text-neutral-dark hover:text-accent-1 transition duration-300">Studio</a>
+                <a href="https://tech.rienhub.com" target="_blank" rel="noopener noreferrer" class="font-title text-neutral-dark hover:text-accent-1 transition duration-300">Tech+IoT</a>
+                <a href="#" class="font-title text-neutral-dark hover:text-accent-1 transition duration-300 nav-link" data-page="careers">Careers</a>
+                <a href="#" class="font-title text-neutral-dark hover:text-accent-1 transition duration-300 nav-link" data-page="investor">Investors</a>
+                <a href="#" class="btn btn-primary text-sm nav-link" data-page="contact">Contact</a>
             </div>
-            
-            <ul class="nav-links">
-                <li><a href="#about">About</a></li>
-                <li><a href="#ecosystem">Ecosystem</a></li>
-                <li><a href="#how-it-works">How It Works</a></li>
-                <li><a href="#blog">Blog</a></li>
-                <li><a href="#contact">Contact</a></li>
-                <li><a href="#contact" class="btn btn-primary nav-cta">Get Started</a></li>
-            </ul>
-            
-            <button class="mobile-nav-toggle" id="mobile-nav-toggle" aria-label="Toggle navigation">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
+
+            <!-- Mobile Menu Button -->
+            <div class="md:hidden">
+                <button id="menu-btn" class="text-neutral-dark focus:outline-none">
+                    <i data-feather="menu" class="w-6 h-6"></i>
+                </button>
+            </div>
         </nav>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 right-0 bg-neutral-gray/95 backdrop-blur-lg border-t border-gray-200">
+            <div class="flex flex-col px-6 py-4 space-y-4">
+                <a href="#" class="font-title text-neutral-dark hover:text-accent-1 transition duration-300 nav-link" data-page="home">Home</a>
+                <a href="#" class="font-title text-neutral-dark hover:text-accent-1 transition duration-300 nav-link" data-page="about">About</a>
+                <a href="#" class="font-title text-neutral-dark hover:text-accent-1 transition duration-300 nav-link" data-page="ecosystem">Ecosystem</a>
+                <a href="https://mobility.rienhub.com" target="_blank" rel="noopener noreferrer" class="font-title text-neutral-dark hover:text-accent-1 transition duration-300">Mobility</a>
+                <a href="https://studio.rienhub.com" target="_blank" rel="noopener noreferrer" class="font-title text-neutral-dark hover:text-accent-1 transition duration-300">Studio</a>
+                <a href="https://tech.rienhub.com" target="_blank" rel="noopener noreferrer" class="font-title text-neutral-dark hover:text-accent-1 transition duration-300">Tech+IoT</a>
+                <a href="#" class="font-title text-neutral-dark hover:text-accent-1 transition duration-300 nav-link" data-page="careers">Careers</a>
+                <a href="#" class="font-title text-neutral-dark hover:text-accent-1 transition duration-300 nav-link" data-page="investor">Investors</a>
+                <a href="#" class="font-title text-neutral-dark hover:text-accent-1 transition duration-300 nav-link" data-page="contact">Contact</a>
+            </div>
+        </div>
     </header>
-    
-    <div class="mobile-menu" id="mobile-menu">
-        <a href="#about">About</a>
-        <a href="#ecosystem">Ecosystem</a>
-        <a href="#how-it-works">How It Works</a>
-        <a href="#blog">Blog</a>
-        <a href="#contact">Contact</a>
-        <a href="#contact" class="btn btn-primary">Get Started</a>
-    </div>
 
-    <main>
+    <!-- ======== MAIN CONTENT WRAPPER ======== -->
+    <main id="main-content" class="pt-20"> <!-- Adjust pt-20 to match header height -->
 
-        <section id="home" class="hero-section">
-            <div class="container">
-                <div class="hero-layout">
-                    <div class="hero-content animate-in">
-                        <h1>Smart Experiences.</h1>
-                        <h1 class="text-gradient">Powered by RIEN X.</h1>
-                        <p class="subheadline">
-                            RienHub connects innovation, mobility, and design into one smart ecosystem — building the digital future of everyday life.
+        <!-- 
+        ========================================
+        PAGE: HOME
+        ========================================
+        -->
+        <section id="page-home" class="page-content">
+            
+            <!-- 1. Hero Section -->
+            <div class="hero-bg min-h-screen flex items-center justify-center text-center -mt-20">
+                <div class="container mx-auto px-6 py-16 relative z-10">
+                    <h1 class="text-white text-5xl md:text-7xl font-bold animate-fade-in-up" style="animation-delay: 0.2s;">
+                        The Future, <span class="text-accent-2">Connected.</span>
+                    </h1>
+                    <p class="text-lg md:text-xl max-w-3xl mx-auto text-gray-300 my-8 animate-fade-in-up" style="animation-delay: 0.4s;">
+                        RIEN Hub powers innovation across mobility, creativity, and technology — building Malaysia’s connected ecosystem for the world.
+                    </p>
+                    <div class="flex flex-col sm:flex-row justify-center gap-4 animate-fade-in-up" style="animation-delay: 0.6s;">
+                        <button class="btn btn-accent-1 text-lg nav-link" data-page="ecosystem">
+                            Explore Ecosystem
+                        </button>
+                        <button class="btn btn-accent-2 text-lg nav-link" data-page="careers">
+                            Join Our Journey
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. Ecosystem Overview -->
+            <section class="py-20 md:py-28">
+                <div class="container mx-auto px-6">
+                    <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 fade-in-up">
+                        A Connected Ecosystem by <span class="text-accent-1">RIEN X</span>
+                    </h2>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+                        
+                        <!-- Card: Mobility -->
+                        <a href="https://mobility.rienhub.com" target="_blank" rel="noopener noreferrer" class="block p-6 rounded-2xl card-light fade-in-up">
+                            <i data-feather="truck" class="w-10 h-10 text-primary mb-3"></i>
+                            <h3 class="text-xl font-bold mb-1">RIEN Mobility</h3>
+                            <p class="text-neutral-text text-sm">Smart rental & digital vehicle access.</p>
+                        </a>
+
+                        <!-- Card: Studio -->
+                        <a href="https://studio.rienhub.com" target="_blank" rel="noopener noreferrer" class="block p-6 rounded-2xl card-light fade-in-up" style="animation-delay: 0.1s;">
+                            <i data-feather="layout" class="w-10 h-10 text-primary mb-3"></i>
+                            <h3 class="text-xl font-bold mb-1">RIEN Studio</h3>
+                            <p class="text-neutral-text text-sm">Creative design & media for the next generation.</p>
+                        </a>
+
+                        <!-- Card: Tech -->
+                        <a href="https://tech.rienhub.com" target="_blank" rel="noopener noreferrer" class="block p-6 rounded-2xl card-light fade-in-up" style="animation-delay: 0.2s;">
+                            <i data-feather="cpu" class="w-10 h-10 text-primary mb-3"></i>
+                            <h3 class="text-xl font-bold mb-1">RIEN Tech</h3>
+                            <p class="text-neutral-text text-sm">Software and app systems powering our innovation.</p>
+                        </a>
+
+                        <!-- Card: IoT -->
+                        <a href="https://tech.rienhub.com" target="_blank" rel="noopener noreferrer" class="block p-6 rounded-2xl card-light fade-in-up" style="animation-delay: 0.3s;">
+                            <i data-feather="wifi" class="w-10 h-10 text-primary mb-3"></i>
+                            <h3 class="text-xl font-bold mb-1">RIEN IoT</h3>
+                            <p class="text-neutral-text text-sm">Hardware & intelligent connectivity.</p>
+                        </a>
+                        
+                        <!-- Card: Lab -->
+                        <div class="p-6 rounded-2xl card-light fade-in-up nav-link cursor-pointer sm:col-span-2 lg:col-span-1" data-page="ecosystem" style="animation-delay: 0.4s;">
+                            <i data-feather="codesandbox" class="w-10 h-10 text-primary mb-3"></i>
+                            <h3 class="text-xl font-bold mb-1">RIEN Lab</h3>
+                            <p class="text-neutral-text text-sm">Research & experimental hub for innovation.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. Vision Statement -->
+            <section class="py-20 md:py-28 bg-white">
+                <div class="container mx-auto px-6 text-center max-w-4xl">
+                    <h3 class="text-3xl md:text-4xl font-bold leading-tight fade-in-up animated-underline">
+                        “We believe in connecting everything — people, machines, and imagination — through purposeful design and technology.”
+                    </h3>
+                </div>
+            </section>
+
+            <!-- 4. Call to Action (CTA) -->
+            <section class="py-20 md:py-28 text-center">
+                <div class="container mx-auto px-6">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6 fade-in-up">
+                        We’re building the future — 
+                        <br class="sm:hidden">
+                        and we want you in it.
+                    </h2>
+                    <div class="flex flex-col sm:flex-row justify-center gap-4 animate-fade-in-up" style="animation-delay: 0.2s;">
+                        <button class="btn btn-primary text-lg nav-link" data-page="investor">
+                            Partner With Us
+                        </button>
+                        <button class="btn btn-accent-1 text-lg nav-link" data-page="careers">
+                            Join Our Team
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+        </section> <!-- /#page-home -->
+
+
+        <!-- 
+        ========================================
+        PAGE: ABOUT
+        ========================================
+        -->
+        <section id="page-about" class="page-content hidden min-h-screen py-20 md:py-28">
+            <div class="container mx-auto px-6">
+                <h1 class="text-5xl md:text-6xl font-bold text-center mb-16 fade-in-up">
+                    Our Story Begins with <span class="text-accent-1">Connection.</span>
+                </h1>
+                
+                <!-- Who We Are -->
+                <div class="max-w-4xl mx-auto mb-20 fade-in-up">
+                    <h2 class="text-3xl font-bold mb-6 text-accent-1">Who We Are</h2>
+                    <p class="text-lg md:text-xl text-neutral-text leading-relaxed">
+                        RIEN Hub is the innovation arm of <span class="text-primary font-semibold">RIEN X</span> — combining mobility, technology, and creativity to build the next era of connected ecosystems. We are a collective of engineers, designers, and visionaries headquartered in Malaysia, driven by a singular goal: to make smart, sustainable technology accessible and human-driven.
+                    </p>
+                </div>
+
+                <!-- Vision & Mission -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-20">
+                    <div class="fade-in-up">
+                        <h2 class="text-3xl font-bold mb-4 text-accent-1">Our Vision</h2>
+                        <p class="text-lg md:text-xl text-neutral-text leading-relaxed">To create a smart, sustainable, and connected digital ecosystem that empowers lives globally.</p>
+                    </div>
+                    <div class="fade-in-up" style="animation-delay: 0.1s;">
+                        <h2 class="text-3xl font-bold mb-4 text-accent-1">Our Mission</h2>
+                        <p class="text-lg md:text-xl text-neutral-text leading-relaxed">Unite innovators, engineers, and creators to design solutions that connect technology with purpose.</p>
+                    </div>
+                </div>
+
+                <!-- Founder Section -->
+                <div class="bg-white rounded-2xl p-8 md:p-12 mb-20 fade-in-up card-light">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+                        <div class="md:col-span-1 text-center">
+                            <!-- Placeholder for founder image -->
+                            <div class="w-48 h-48 bg-neutral-gray rounded-full mx-auto flex items-center justify-center border-4 border-accent-1 shadow-lg shadow-accent-1/20">
+                                <i data-feather="user" class="w-24 h-24 text-gray-400"></i>
+                            </div>
+                        </div>
+                        <div class="md:col-span-2">
+                            <h3 class="text-2xl font-bold text-accent-1 mb-2">A Note From Our Founder</h3>
+                            <p class="text-lg text-neutral-text leading-relaxed mb-4">"Founded by Amrin Amsyar Zaaba in Malaysia, RIEN Hub was built from a vision to make smart mobility and digital ecosystems accessible, scalable, and human-driven."</p>
+                            <p class="font-title text-primary text-lg font-semibold">Amrin Amsyar Zaaba</p>
+                            <p class="text-accent-1 font-medium">Founder & CEO, RIEN X</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Timeline -->
+                <div class="max-w-3xl mx-auto fade-in-up">
+                    <h2 class="text-3xl font-bold text-center mb-16 text-accent-1">Our Journey</h2>
+                    <div class="relative">
+                        <!-- Timeline Item 1 -->
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <h4 class="text-2xl font-bold text-primary">2024</h4>
+                            <p class="text-lg text-neutral-text mt-1">Concept Born: The vision for a connected ecosystem is established.</p>
+                        </div>
+                        <!-- Timeline Item 2 -->
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <h4 class="text-2xl font-bold text-primary">2025</h4>
+                            <p class="text-lg text-neutral-text mt-1">RIEN Mobility Launch: Our flagship smart rental service goes live.</p>
+                        </div>
+                        <!-- Timeline Item 3 -->
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <h4 class="text-2xl font-bold text-primary">2026</h4>
+                            <p class="text-lg text-neutral-text mt-1">Studio Expansion: RIEN Studio scales to external clients, building brands.</p>
+                        </div>
+                        <!-- Timeline Item 4 -->
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <h4 class="text-2xl font-bold text-primary">Future</h4>
+                            <p class="text-lg text-neutral-text mt-1">IoT & Tech Lab Innovation: Full integration of smart hardware and R&D.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section> <!-- /#page-about -->
+
+
+        <!-- 
+        ========================================
+        PAGE: ECOSYSTEM
+        ========================================
+        -->
+        <section id="page-ecosystem" class="page-content hidden min-h-screen py-20 md:py-28">
+            <div class="container mx-auto px-6">
+                <h1 class="text-5xl md:text-6xl font-bold text-center mb-6 fade-in-up">
+                    Every Idea. Every System. <span class="text-accent-1">One Hub.</span>
+                </h1>
+                <p class="text-lg md:text-xl text-center max-w-3xl mx-auto text-neutral-text mb-16 fade-in-up">
+                    Our ecosystem is an interconnected grid of specialized divisions. Each unit is a center of excellence, yet all are linked to the RIEN Hub core, sharing data, talent, and vision.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    
+                    <!-- Card: Mobility -->
+                    <a href="https://mobility.rienhub.com" target="_blank" rel="noopener noreferrer" class="block card-light rounded-2xl p-8 flex flex-col fade-in-up">
+                        <i data-feather="truck" class="w-12 h-12 text-accent-1 mb-4"></i>
+                        <h3 class="text-3xl font-bold mb-3">RIEN Mobility</h3>
+                        <p class="text-neutral-text text-lg mb-6 flex-grow">Smart car rental and keyless access ecosystem. This is our flagship product, redefining vehicle access through digital technology.</p>
+                        <span class="font-title text-lg text-accent-1 hover:text-accent-1/80 font-semibold">Learn More &rarr;</span>
+                    </a>
+
+                    <!-- Card: Studio -->
+                    <a href="https://studio.rienhub.com" target="_blank" rel="noopener noreferrer" class="block card-light rounded-2xl p-8 flex flex-col fade-in-up" style="animation-delay: 0.1s;">
+                        <i data-feather="layout" class="w-12 h-12 text-accent-1 mb-4"></i>
+                        <h3 class="text-3xl font-bold mb-3">RIEN Studio</h3>
+                        <p class="text-neutral-text text-lg mb-6 flex-grow">Design and creative media arm. RIEN Studio transforms ideas into powerful identities, crafting the brands and interfaces for the next generation.</p>
+                        <span class="font-title text-lg text-accent-1 hover:text-accent-1/80 font-semibold">Learn More &rarr;</span>
+                    </a>
+
+                    <!-- Card: Tech -->
+                    <a href="https://tech.rienhub.com" target="_blank" rel="noopener noreferrer" class="block card-light rounded-2xl p-8 flex flex-col fade-in-up" style="animation-delay: 0.2s;">
+                        <i data-feather="cpu" class="w-12 h-12 text-accent-1 mb-4"></i>
+                        <h3 class="text-3xl font-bold mb-3">RIEN Tech</h3>
+                        <p class="text-neutral-text text-lg mb-6 flex-grow">Software, app, and automation development. The digital engine of the Hub, building the platforms and AI that connect all our services.</p>
+                        <span class="font-title text-lg text-accent-1 hover:text-accent-1/80 font-semibold">Learn More &rarr;</span>
+                    </a>
+
+                    <!-- Card: IoT -->
+                    <a href="https://tech.rienhub.com" target="_blank" rel="noopener noreferrer" class="block card-light rounded-2xl p-8 flex flex-col fade-in-up" style="animation-delay: 0.3s;">
+                        <i data-feather="wifi" class="w-12 h-12 text-accent-1 mb-4"></i>
+                        <h3 class="text-3xl font-bold mb-3">RIEN IoT</h3>
+                        <p class="text-neutral-text text-lg mb-6 flex-grow">Developing smart hardware and connected systems for the future. Our link to the physical world, creating devices that gather data and enable automation.</p>
+                        <span class="font-title text-lg text-accent-1 hover:text-accent-1/80 font-semibold">Learn More &rarr;</span>
+                    </a>
+                    
+                    <!-- Card: Lab -->
+                    <div class="card-light rounded-2xl p-8 flex flex-col fade-in-up md:col-span-2" style="animation-delay: 0.4s;">
+                        <i data-feather="codesandbox" class="w-12 h-12 text-accent-1 mb-4"></i>
+                        <h3 class="text-3xl font-bold mb-3">RIEN Lab</h3>
+                        <p class="text-neutral-text text-lg mb-6 flex-grow">Research and prototype development — where new ideas start. The Lab is our forward-thinking R&D center, experimenting with next-generation technologies before they hit the market.</p>
+                        <span class="font-title text-lg text-gray-400 font-semibold">Coming Soon</span>
+                    </div>
+
+                </div>
+            </div>
+        </section> <!-- /#page-ecosystem -->
+        
+        <!-- 
+        ========================================
+        PAGE: MOBILITY
+        ========================================
+        -->
+        <!-- SECTION REMOVED - Will be on mobility.rienhub.com -->
+        
+        <!-- 
+        ========================================
+        PAGE: STUDIO
+        ========================================
+        -->
+        <!-- SECTION REMOVED - Will be on studio.rienhub.com -->
+        
+        <!-- 
+        ========================================
+        PAGE: TECH + IOT
+        ========================================
+        -->
+        <!-- SECTION REMOVED - Will be on tech.rienhub.com -->
+
+
+        <!-- 
+        ========================================
+        PAGE: CAREERS
+        ========================================
+        -->
+        <section id="page-careers" class="page-content hidden min-h-screen py-20 md:py-28">
+            <div class="container mx-auto px-6">
+                <div class="text-center max-w-4xl mx-auto">
+                    <h1 class="text-5xl md:text-6xl font-bold mb-6 fade-in-up">
+                        Join the Builders of <span class="text-accent-2">Tomorrow.</span>
+                    </h1>
+                    <p class="text-lg md:text-xl text-neutral-text mb-12 fade-in-up">
+                        RIEN Hub is powered by dreamers, makers, and innovators. We welcome engineers, designers, developers, and creators who want to build meaningful technology.
+                    </p>
+                </div>
+
+                <!-- Why Join Us -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
+                    <div class="card-light rounded-2xl p-6 fade-in-up">
+                        <i data-feather="trending-up" class="w-10 h-10 text-accent-1 mb-3"></i>
+                        <h4 class="text-xl font-bold">Build What's Next</h4>
+                        <p class="text-neutral-text">Work on tangible products that are shaping the future of mobility and tech.</p>
+                    </div>
+                    <div class="card-light rounded-2xl p-6 fade-in-up" style="animation-delay: 0.1s;">
+                        <i data-feather="zap" class="w-10 h-10 text-accent-1 mb-3"></i>
+                        <h4 class="text-xl font-bold">Innovation Culture</h4>
+                        <p class="text-neutral-text">Bring your boldest ideas. We provide the freedom and support to experiment.</p>
+                    </div>
+                    <div class="card-light rounded-2xl p-6 fade-in-up" style="animation-delay: 0.2s;">
+                        <i data-feather="users" class="w-10 h-10 text-accent-1 mb-3"></i>
+                        <h4 class="text-xl font-bold">A-List Team</h4>
+                        <p class="text-neutral-text">Collaborate with a diverse team of highly skilled builders and creators.</p>
+                    </div>
+                    <div class="card-light rounded-2xl p-6 fade-in-up" style="animation-delay: 0.3s;">
+                        <i data-feather="chevrons-up" class="w-10 h-10 text-accent-1 mb-3"></i>
+                        <h4 class="text-xl font-bold">Accelerate Growth</h4>
+                        <p class="text-neutral-text">We are a fast-moving startup. Your impact will be immediate and significant.</p>
+                    </div>
+                </div>
+
+                <!-- Career Roles -->
+                <div class="max-w-4xl mx-auto text-center fade-in-up">
+                    <h2 class="text-3xl font-bold mb-8">We're Looking For...</h2>
+                    <div class="flex flex-wrap justify-center gap-4 text-lg font-title">
+                        <span class="bg-accent-1/10 text-accent-1 px-5 py-2 rounded-full font-semibold">Software Developer</span>
+                        <span class="bg-accent-1/10 text-accent-1 px-5 py-2 rounded-full font-semibold">IoT Engineer</span>
+                        <span class="bg-accent-1/10 text-accent-1 px-5 py-2 rounded-full font-semibold">Designer / UI Artist</span>
+                        <span class="bg-accent-1/10 text-accent-1 px-5 py-2 rounded-full font-semibold">Marketing Intern</span>
+                    </div>
+                    <p class="text-neutral-text mt-8 mb-8 text-lg">
+                        Even if you don't see an exact fit, we are always looking for exceptional talent.
+                    </p>
+                    <button class="btn btn-accent-1 text-lg nav-link" data-page="contact" data-category="Career">
+                        Apply Now
+                    </button>
+                </div>
+
+            </div>
+        </section> <!-- /#page-careers -->
+
+
+        <!-- 
+        ========================================
+        PAGE: INVESTOR & PARTNER
+        ========================================
+        -->
+        <section id="page-investor" class="page-content hidden min-h-screen py-20 md:py-28">
+            <div class="container mx-auto px-6">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                    
+                    <!-- Left Column: Text -->
+                    <div class="fade-in-up">
+                        <h1 class="text-5xl md:text-6xl font-bold mb-6">
+                            Invest in the Future of <span class="text-accent-1">Connected</span> Mobility & Technology.
+                        </h1>
+                        <p class="text-lg md:text-xl text-neutral-text mb-10 leading-relaxed">
+                            RIEN Hub is developing Malaysia’s first connected ecosystem linking mobility, IoT, and digital creativity. We are actively seeking strategic investors and partners to help us scale our vision and accelerate the future.
                         </p>
-                        <div class="hero-buttons">
-                            <a href="#ecosystem" class="btn btn-primary">Explore Rien Mobility 🚗</a>
-                            <a href="#ecosystem" class="btn btn-secondary">Visit Rien Studio 🎨</a>
-                        </div>
-                        <p class="hero-microcopy">Scalable. Connected. Designed for everyday mobility.</p>
-                    </div>
-                    
-                    <div class="hero-visual animate-in">
-                        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                            <defs>
-                                <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" style="stop-color:var(--color-accent2);stop-opacity:1" />
-                                    <stop offset="100%" style="stop-color:var(--color-accent1);stop-opacity:1" />
-                                </linearGradient>
-                            </defs>
-                            <path fill="url(#grad1)" fill-opacity="0.1" d="M48.5,-59.2C62.8,-48.9,74.3,-34.5,78.9,-17.8C83.5,-1.1,81.2,17.9,71.7,33.3C62.2,48.7,45.5,60.5,28.3,67C11.1,73.5,-6.7,74.7,-23.4,69.5C-40,64.4,-55.5,53,-65.4,37.8C-75.3,22.6,-79.6,3.6,-76.3,-13.8C-73,-31.2,-62.1,-47,-48.2,-57.6C-34.4,-68.2,-17.2,-73.6,-0.9,-72.7C15.4,-71.8,30.8,-64.7,48.5,-59.2Z" transform="translate(100 100)" />
-                            <circle cx="100" cy="100" r="40" fill="var(--color-primary)" />
-                            <circle cx="100" cy="100" r="50" fill="none" stroke="var(--color-accent1)" stroke-width="2" stroke-dasharray="4 4" />
-                            <circle cx="40" cy="50" r="10" fill="var(--color-accent1)" />
-                            <circle cx="160" cy="150" r="15" fill="var(--color-accent2)" />
-                            <circle cx="70" cy="160" r="8" fill="var(--color-primary)" stroke="var(--color-accent2)" stroke-width="2"/>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-        </section>
 
-        <section id="ecosystem" class="content-section bg-light-gray">
-            <div class="container">
-                <div class="section-header animate-in">
-                    <h2>Our Ecosystem</h2>
-                    <p>RienHub acts as the digital core that connects all Rien X services under one identity.</p>
-                </div>
-                
-                <div class="grid-3">
-                    <div class="card animate-in">
-                        <div class="card-content">
-                            <div class="card-icon">🚗</div>
-                            <h3>Rien Mobility</h3>
-                            <p>Your one-stop center for next-generation mobility — from car rental to smart digital key systems. Seamless, contactless, and powered by IoT.</p>
-                            <a href="#" class="card-link">Visit Mobility →</a>
+                        <!-- Highlights -->
+                        <div class="space-y-6 mb-10">
+                            <div class="flex items-start gap-4">
+                                <i data-feather="trending-up" class="w-8 h-8 text-accent-1 flex-shrink-0 mt-1"></i>
+                                <div>
+                                    <h4 class="text-xl font-bold">Why Invest?</h4>
+                                    <p class="text-neutral-text">Clear vision, tangible traction with RIEN Mobility, and massive growth potential in the SEA market.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <i data-feather="zap" class="w-8 h-8 text-accent-1 flex-shrink-0 mt-1"></i>
+                                <div>
+                                    <h4 class="text-xl font-bold">What We Offer</h4>
+                                    <p class="text-neutral-text">A scalable ecosystem, a real-world product, and a future-ready market position.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <i data-feather="users" class="w-8 h-8 text-accent-1 flex-shrink-0 mt-1"></i>
+                                <div>
+                                    <h4 class="text-xl font-bold">Partnership Models</h4>
+                                    <p class="text-neutral-text">We are open to technology, business, and innovation partnerships to build a robust ecosystem.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <button class="btn btn-primary text-lg nav-link" data-page="contact" data-category="Investor">
+                                Request Investor Deck
+                            </button>
+                            <button class="btn btn-accent-1 text-lg nav-link" data-page="contact" data-category="Investor">
+                                Contact Founder
+                            </button>
                         </div>
                     </div>
                     
-                    <div class="card animate-in">
-                        <div class="card-content">
-                            <div class="card-icon">🎨</div>
-                            <h3>Rien Studio</h3>
-                            <p>A creative platform offering customizable e-cards, design templates, and digital materials for events and brands.</p>
-                            <a href="#" class="card-link">Explore Studio →</a>
+                    <!-- Right Column: Visual (Roadmap) -->
+                    <div class="hidden lg:block p-8 card-light rounded-3xl fade-in-up" style="animation-delay: 0.2s;">
+                        <h3 class="text-2xl text-accent-1 font-bold mb-6">Roadmap Preview</h3>
+                        <div class="relative">
+                            <!-- Timeline Item 1 -->
+                            <div class="timeline-item">
+                                <div class="timeline-dot"></div>
+                                <h4 class="text-xl font-bold text-primary">Mobility</h4>
+                                <p class="text-lg text-neutral-text mt-1">Scale smart rental fleet and user base.</p>
+                            </div>
+                            <!-- Timeline Item 2 -->
+                            <div class="timeline-item">
+                                <div class="timeline-dot"></div>
+                                <h4 class="text-xl font-bold text-primary">IoT</h4>
+                                <p class="text-lg text-neutral-text mt-1">Integrate proprietary hardware into fleet.</p>
+                            </div>
+                            <!-- Timeline Item 3 -->
+                            <div class="timeline-item">
+                                <div class="timeline-dot"></div>
+                                <h4 class="text-xl font-bold text-primary">Studio</h4>
+                                <p class="text-lg text-neutral-text mt-1">Expand creative services to external market.</p>
+                            </div>
+                            <!-- Timeline Item 4 -->
+                            <div class="timeline-item">
+                                <div class="timeline-dot"></div>
+                                <h4 class="text-xl font-bold text-primary">Lab</h4>
+                                <p class="text-lg text-neutral-text mt-1">Full-scale R&D and global ecosystem launch.</p>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="card animate-in">
-                        <div class="card-content">
-                            <div class="card-icon">⚙️</div>
-                            <h3>Future Divisions</h3>
-                            <p>Exploring the next wave: Rien IoT Lab, Rien Academy, and Rien Business Hub for partners and enterprises.</p>
-                            <a href="#" class="card-link">Learn More →</a>
-                        </div>
-                    </div>
                 </div>
             </div>
-        </section>
-        
-        <section id="how-it-works" class="content-section">
-            <div class="container">
-                <div class="section-header animate-in">
-                    <h2>Get Started in 3 Steps</h2>
-                </div>
-                
-                <div class="timeline">
-                    <div class="timeline-step animate-in">
-                        <div class="timeline-step-icon">1</div>
-                        <h4>Discover</h4>
-                        <p>Explore our ecosystem of mobility and creative services.</p>
-                    </div>
-                    <div class="timeline-step animate-in">
-                        <div class="timeline-step-icon">2</div>
-                        <h4>Book / Create</h4>
-                        <p>Instantly book a vehicle or start designing with Rien Studio.</p>
-                    </div>
-                    <div class="timeline-step animate-in">
-                        <div class="timeline-step-icon">3</div>
-                        <h4>Connect</h4>
-                        <p>Access your services seamlessly with IoT and smart digital tools.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+        </section> <!-- /#page-investor -->
 
-        <section id="features" class="content-section bg-light-gray">
-            <div class="container">
-                <div class="section-header animate-in">
-                    <h2>Why Choose Rien X</h2>
-                </div>
-                
-                <div class="grid-3 grid-features">
-                    <div class="card animate-in">
-                        <div class="card-content">
-                            <h4>🧩 Unified Ecosystem</h4>
-                            <p>One account, multiple experiences across Rien X platforms.</p>
-                        </div>
-                    </div>
-                    <div class="card animate-in">
-                        <div class="card-content">
-                            <h4>⚡ Smart Integration</h4>
-                            <p>Designed for seamless IoT and digital connectivity.</p>
-                        </div>
-                    </div>
-                    <div class="card animate-in">
-                        <div class="card-content">
-                            <h4>💡 Creative Freedom</h4>
-                            <p>Empowering users to design, move, and manage digitally.</p>
-                        </div>
-                    </div>
-                    <div class="card animate-in">
-                        <div class="card-content">
-                            <h4>🚀 Made for Growth</h4>
-                            <p>Built on scalable tech (Firebase + Cloud + AI).</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <section id="blog" class="content-section">
-            <div class="container">
-                <div class="section-header animate-in">
-                    <h2>Latest from Rien X</h2>
-                </div>
-                
-                <div class="grid-3">
-                    <div class="card animate-in">
-                        <img src="https://images.unsplash.com/photo-1515523110800-9415d167824c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzNjUyOXwwfDF8c2VhcmNofDEwfHxzbWFydCUyMGNhcnxlbnwwfHx8fDE3MzAyMjQ0MzV8MA&ixlib=rb-4.0.3&q=80&w=400" alt="Smart car interior" class="card-image">
-                        <div class="card-content">
-                            <h4>The Future of Car Rental is Here</h4>
-                            <p>Learn how our smart digital key system is changing mobility.</p>
-                            <a href="#" class="card-link">Read More →</a>
-                        </div>
-                    </div>
-                    <div class="card animate-in">
-                        <img src="https://images.unsplash.com/photo-1558346489-19413928158b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzNjUyOXwwfDF8c2VhcmNofDZ8fGRlc2lnbiUyMHN0dWRpb3xlbnwwfHx8fDE3MzAyMjQ0NTF8MA&ixlib=rb-4.0.3&q=80&w=400" alt="Design studio workspace" class="card-image">
-                        <div class="card-content">
-                            <h4>5 Tips for Your Next Digital Event</h4>
-                            <p>Discover how Rien Studio can elevate your brand's presence.</p>
-                            <a href="#" class="card-link">Read More →</a>
-                        </div>
-                    </div>
-                    <div class="card animate-in">
-                        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzNjUyOXwwfDF8c2VhcmNofDN8fGNvZGluZ3xlbnwwfHx8fDE3MzAyMjQ0NjV8MA&ixlib=rb-4.0.3&q=80&w=400" alt="Code on a laptop screen" class="card-image">
-                        <div class="card-content">
-                            <h4>Why We Chose a Scalable Tech Stack</h4>
-                            <p>A deep dive into our use of Firebase, Cloud, and AI.</p>
-                            <a href="#" class="card-link">Read More →</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
 
-        <section class="content-section">
-            <div class="container">
-                <div class="cta-band animate-in">
-                    <h2>Ready to get started?</h2>
-                    <p>Explore our ecosystem or contact us for a partnership.</p>
-                    <a href="#ecosystem" class="btn btn-primary">Start with Rien Mobility</a>
+        <!-- 
+        ========================================
+        PAGE: CONTACT
+        ========================================
+        -->
+        <section id="page-contact" class="page-content hidden min-h-screen py-20 md:py-28">
+            <div class="container mx-auto px-6">
+                <div class="max-w-3xl mx-auto text-center">
+                    <h1 class="text-5xl md:text-6xl font-bold mb-6 fade-in-up">
+                        Let’s Build the Future <span class="text-accent-1">Together.</span>
+                    </h1>
+                    <p class="text-lg md:text-xl text-neutral-text mb-12 fade-in-up">
+                        Whether you're an investor, a future team member, or just curious, we’d love to hear from you.
+                    </p>
                 </div>
-            </div>
-        </section>
 
-        <section id="contact" class="content-section">
-            <div class="container">
-                <div class="section-header animate-in">
-                    <h2>Contact Us</h2>
-                    <p>Have a question or a partnership idea? Let’s connect.</p>
-                </div>
-                <div class="contact-layout">
-                    <a href="https://wa.me/YOUR_NUMBER_HERE" class="btn btn-primary" target="_blank">💬 Chat on WhatsApp</a>
-                    <p>Or email us at: <a href="mailto:info@rienhub.com">info@rienhub.com</a></p>
+                <div class="max-w-2xl mx-auto card-light rounded-2xl p-8 md:p-12 fade-in-up">
+                    
+                    <!-- 
+                    ========================================
+                    GOOGLE SHEET CONTACT FORM
+                    ========================================
+                    1. Create a Google Sheet.
+                    2. Go to Extensions -> Apps Script.
+                    3. Paste the Apps Script code (provided in the code comments) and save.
+                    4. Click "Deploy" -> "New deployment".
+                    5. Select "Web app" for type.
+                    6. Set "Execute as" to "Me".
+                    7. Set "Who has access" to "Anyone".
+                    8. Click "Deploy".
+                    9. Copy the "Web app URL" and paste it into the `scriptURL` variable below.
+                    -->
+                    
+                    <form id="contact-form" name="submit-to-google-sheet">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
+                            <div>
+                                <label for="name" class="block font-title text-sm font-medium mb-2 text-gray-700">Your Name</label>
+                                <input type="text" name="Name" id="name" class="form-input w-full" required>
+                            </div>
+                            <div>
+                                <label for="email" class="block font-title text-sm font-medium mb-2 text-gray-700">Your Email</label>
+                                <input type="email" name="Email" id="email" class="form-input w-full" required>
+                            </div>
+                        </div>
+                        <div class="mb-6">
+                            <label for="contact-category" class="block font-title text-sm font-medium mb-2 text-gray-700">Purpose</label>
+                            <select id="contact-category" name="Category" class="form-input form-select w-full">
+                                <option value="General">General Inquiry</option>
+                                <option value="Investor">Investor Inquiry</option>
+                                <option value="Collaboration">Collaboration</option>
+                                <option value="Career">Career Interest</option>
+                            </select>
+                        </div>
+                        <div class="mb-8">
+                            <label for="message" class="block font-title text-sm font-medium mb-2 text-gray-700">Message</label>
+                            <textarea id="message" name="Message" rows="5" class="form-input w-full" required></textarea>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" id="submit-btn" class="btn btn-primary text-lg w-full">
+                                Submit Message
+                            </button>
+                        </div>
+                    </form>
+                    
+                    <!-- Form Status Message -->
+                    <div id="form-status-message" class="text-center mt-6 text-lg"></div>
+
                 </div>
             </div>
-        </section>
+        </section> <!-- /#page-contact -->
+
 
     </main>
 
-    <footer class="main-footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-logo">
-                    <h3 style="color: white;">RienHub</h3>
-                    <p>Rien X = Reliable Intelligent Ecosystem Network<br>
-                       Building the digital future of everyday life.</p>
+    <!-- ======== FOOTER ======== -->
+    <footer class="border-t border-gray-200 mt-20 md:mt-28 bg-white">
+        <div class="container mx-auto px-6 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+                <!-- Column 1: Logo & Copyright -->
+                <div>
+                    <a href="#" class="font-title text-3xl font-bold nav-link inline-block mb-4 text-primary" data-page="home">
+                        RIEN<span class="text-accent-1">Hub</span>
+                    </a>
+                    <p class="text-gray-500 text-sm">© 2025 RIEN X.
+                        <br>All rights reserved.
+                    </p>
                 </div>
-                <div class="footer-links">
-                    <h4>Links</h4>
-                    <a href="#about">About Us</a>
-                    <a href="#ecosystem">Ecosystem</a>
-                    <a href="#blog">Blog</a>
-                    <a href="#contact">Contact</a>
+                
+                <!-- Column 2: Quick Links -->
+                <div>
+                    <h4 class="text-xl font-bold mb-4">Navigate</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-600 hover:text-accent-1 nav-link" data-page="about">About</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-accent-1 nav-link" data-page="ecosystem">Ecosystem</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-accent-1 nav-link" data-page="careers">Careers</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-accent-1 nav-link" data-page="investor">Investors</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-accent-1 nav-link" data-page="contact">Contact</a></li>
+                    </ul>
                 </div>
-                <div class="footer-links">
-                    <h4>Legal</h4>
-                    <a href="#">Privacy Policy</a>
-                    <a href="#">Terms of Service</a>
-                </div>
-                <div class="footer-socials">
-                    <h4>Follow Us</h4>
-                    <div>
-                        <a href="#" aria-label="LinkedIn">L</a>
-                        <a href="#" aria-label="Instagram">I</a>
-                        <a href="#" aria-label="YouTube">Y</a>
+
+                <!-- Column 3: Connect -->
+                <div>
+                    <h4 class="text-xl font-bold mb-4">Connect</h4>
+                    <div class="flex justify-center md:justify-start gap-5">
+                        <a href="#" class="text-gray-500 hover:text-accent-1"><i data-feather="linkedin" class="w-6 h-6"></i></a>
+                        <a href="#" class="text-gray-500 hover:text-accent-1"><i data-feather="instagram" class="w-6 h-6"></i></a>
+                        <a href="#" class="text-gray-500 hover:text-accent-1"><i data-feather="youtube" class="w-6 h-6"></i></a>
                     </div>
                 </div>
-            </div>
-            
-            <div class="footer-copyright">
-                © 2025 Rien X Enterprise. All rights reserved.
             </div>
         </div>
     </footer>
 
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            
-            // --- 1. Mobile Menu Toggle ---
-            const navToggle = document.getElementById('mobile-nav-toggle');
-            const navMenu = document.getElementById('mobile-menu');
-            const navLinks = navMenu.querySelectorAll('a');
+    <!-- 
+    ========================================
+    JAVASCRIPT
+    ========================================
+    -->
+    <script type="module">
+      // Wait for the DOM to be fully loaded before running script
+      document.addEventListener('DOMContentLoaded', () => {
+        
+        // --- Feather Icons ---
+        feather.replace();
 
-            if (navToggle && navMenu) {
-                navToggle.addEventListener('click', () => {
-                    navMenu.classList.toggle('active');
-                    navToggle.classList.toggle('active');
-                });
+        // --- SPA Navigation Logic ---
+        const navLinks = document.querySelectorAll('.nav-link');
+        const allNavLinks = document.querySelectorAll('header .nav-link'); // All links in header
+        const pages = document.querySelectorAll('.page-content');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuBtn = document.getElementById('menu-btn');
+        const contactCategorySelect = document.getElementById('contact-category');
+
+        function navigateTo(pageId, params = {}) {
+            // Hide all pages
+            pages.forEach(page => {
+                page.classList.add('hidden');
+            });
+
+            // Show the target page
+            const targetPage = document.getElementById(`page-${pageId}`);
+            if (targetPage) {
+                targetPage.classList.remove('hidden');
+                // Trigger fade-in animations for the new page's elements
+                observeElements(targetPage.querySelectorAll('.fade-in-up'));
             }
-            
-            // --- 2. Close Mobile Menu When Link is Clicked ---
-            navLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                    if (navMenu.classList.contains('active')) {
-                        navMenu.classList.remove('active');
-                        navToggle.classList.remove('active');
-                    }
-                });
+
+            // Update active nav link
+            allNavLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('data-page') === pageId) {
+                    link.classList.add('active');
+                }
             });
 
-            // --- 3. Smooth Scroll for All Anchor Links ---
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href');
-                    const targetElement = document.querySelector(targetId);
+            // Scroll to top
+            window.scrollTo(0, 0);
 
-                    if (targetElement) {
-                        const headerOffset = document.querySelector('.main-header').offsetHeight;
-                        const elementPosition = targetElement.getBoundingClientRect().top;
-                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+            // Close mobile menu
+            mobileMenu.classList.add('hidden');
+            menuBtn.innerHTML = '<i data-feather="menu" class="w-6 h-6"></i>'; // Reset icon
+            feather.replace(); // Re-render icon
 
-                        window.scrollTo({
-                            top: offsetPosition,
-                            behavior: 'smooth'
-                        });
-                    }
-                });
+            // Handle pre-filling contact form
+            if (pageId === 'contact' && params.category) {
+                if(contactCategorySelect) {
+                    contactCategorySelect.value = params.category;
+                }
+            }
+        }
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const pageId = link.getAttribute('data-page');
+                const category = link.getAttribute('data-category'); // For Careers/Investor buttons
+                if (pageId) {
+                    navigateTo(pageId, { category: category });
+                }
             });
+        });
 
-            // --- 4. Fade-in on Scroll Animation ---
-            const animatedElements = document.querySelectorAll('.animate-in');
-            if ('IntersectionObserver' in window) {
-                const observer = new IntersectionObserver((entries) => {
+        // --- Mobile Menu Toggle ---
+        menuBtn.addEventListener('click', () => {
+            const isHidden = mobileMenu.classList.toggle('hidden');
+            if (isHidden) {
+                menuBtn.innerHTML = '<i data-feather="menu" class="w-6 h-6"></i>';
+            } else {
+                menuBtn.innerHTML = '<i data-feather="x" class="w-6 h-6"></i>';
+            }
+            feather.replace(); // Re-render icon
+        });
+
+        // --- Intersection Observer for Animations ---
+        let observer;
+
+        function observeElements(elements) {
+            if (!observer) {
+                const options = {
+                    root: null,
+                    rootMargin: '0px',
+                    threshold: 0.1
+                };
+                
+                observer = new IntersectionObserver((entries, obs) => {
                     entries.forEach(entry => {
                         if (entry.isIntersecting) {
                             entry.target.classList.add('is-visible');
-                            observer.unobserve(entry.target); 
+                            // obs.unobserve(entry.TArget); // Optional: stop observing after visible
+                        } else {
+                            // Optional: Re-fade on scroll out
+                            // entry.target.classList.remove('is-visible');
                         }
                     });
-                }, { threshold: 0.1 });
-
-                animatedElements.forEach(el => {
-                    observer.observe(el);
-                });
-            } else {
-                // Fallback for older browsers
-                animatedElements.forEach(el => el.classList.add('is-visible'));
+                }, options);
             }
+            
+            elements.forEach(el => {
+                // Reset animation if it was already visible
+                el.classList.remove('is-visible'); 
+                observer.observe(el);
+            });
+        }
+        
+        // Initial observation on page load
+        navigateTo('home'); // Start at home page
+        
+
+
+        // --- Contact Form Logic (Google Sheets) ---
+        const form = document.getElementById('contact-form');
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbycJuSG-l2_Bj26wtVHAev6NWGbhVKAUkIBAMcGeOMldXrG5JNsp_J5Mq1m2NNmw2KwPA/exec'; // <-- UPDATED URL
+        const statusMsg = document.getElementById('form-status-message');
+        const submitBtn = document.getElementById('submit-btn');
+
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Sending...';
+            statusMsg.textContent = '';
+            
+            // Show a warning if the default URL is still there
+            if (scriptURL === 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE') {
+                console.error("Contact form error: Please update the 'scriptURL' variable with your Google Apps Script URL.");
+                statusMsg.textContent = 'Form submission is not configured.';
+                statusMsg.style.color = tailwind.theme.colors.danger;
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Submit Message';
+                return;
+            }
+
+            fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+                .then(response => response.json()) // Expect JSON response from Apps Script
+                .then(data => {
+                    console.log('Success!', data);
+                    if (data.result === 'success') {
+                        statusMsg.textContent = 'Message sent successfully! We will get back to you soon.';
+                        statusMsg.style.color = tailwind.theme.colors['accent-1'];
+                        form.reset();
+                    } else {
+                        throw new Error(data.error || 'Unknown error occurred.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error!', error.message);
+                    statusMsg.textContent = 'An error occurred. Please try again later.';
+                    statusMsg.style.color = tailwind.theme.colors.danger;
+                })
+                .finally(() => {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Submit Message';
+                });
         });
+
+        /* ========================================
+        Google Apps Script Code (for contact form)
+        ========================================
+        Paste this code into your Google Apps Script project (Extensions -> Apps Script)
+
+        function doPost(e) {
+          try {
+            var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Contact Form"); // <-- Make sure sheet name matches
+            if (!sheet) {
+              sheet = SpreadsheetApp.getActiveSpreadsheet().insertSheet("Contact Form");
+              sheet.appendRow(["Timestamp", "Name", "Email", "Category", "Message"]); // <-- Header row
+            }
+            
+            var timestamp = new Date();
+            var name = e.parameter.Name;
+            var email = e.parameter.Email;
+            var category = e.parameter.Category;
+            var message = e.parameter.Message;
+            
+            sheet.appendRow([timestamp, name, email, category, message]);
+            
+            return ContentService
+              .createTextOutput(JSON.stringify({ "result": "success", "data": JSON.stringify(e.parameter) }))
+              .setMimeType(ContentService.MimeType.JSON);
+              
+          } catch (error) {
+            return ContentService
+              .createTextOutput(JSON.stringify({ "result": "error", "error": error.message }))
+              .setMimeType(ContentService.MimeType.JSON);
+          }
+        }
+        
+        */
+
+      }); // End of DOMContentLoaded
     </script>
 
 </body>
 </html>
+
