@@ -2,19 +2,81 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    
+    <!-- ======== SEO & CORE METADATA ======== -->
+    <title>RIEN Hub | Building the Future of Innovation and Mobility</title>
+    <meta name="description" content="RIEN Hub — the central innovation ecosystem of RIEN X. Connecting mobility, technology, and creativity to build the future of smart living.">
+    <meta name="keywords" content="Rien Hub, Rien X, Smart Mobility, IoT, Innovation, Tech Ecosystem, Malaysia, Future Technology, Digital Hub, Rien Mobility, Rien Studio">
+    <meta name="author" content="RIEN X">
+    <meta name="robots" content="index, follow">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RIEN Hub — The Future, Connected</title>
 
+    <!-- ======== SOCIAL MEDIA & OG TAGS ======== -->
+    <!-- Open Graph (Facebook, LinkedIn, etc.) -->
+    <meta property="og:title" content="RIEN Hub | Building the Future of Innovation and Mobility">
+    <meta property="og:description" content="RIEN Hub — the central innovation ecosystem of RIEN X. Connecting mobility, technology, and creativity to build the future of smart living.">
+    <meta property="og:image" content="https://rienhub.com/assets/og-image.jpg"> <!-- Make sure this image exists -->
+    <meta property="og:url" content="https://rienhub.com">
+    <meta property="og:type" content="website">
+
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="RIEN Hub — The Future, Connected">
+    <meta name="twitter:description" content="RIEN Hub powers innovation across mobility, IoT, and creative design — by RIEN X.">
+    <meta name="twitter:image" content="https://rienhub.com/assets/og-image.jpg"> <!-- Make sure this image exists -->
+    <meta name="twitter:creator" content="@rienhub"> <!-- Your Twitter handle -->
+
+    <!-- ======== FAVICON & APP ICONS ======== -->
+    <link rel="icon" href="/assets/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+    <link rel="manifest" href="/manifest.json"> <!-- Make sure this file exists -->
+
+    <!-- ======== CSS & FONTS ======== -->
     <!-- 1. Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-
     <!-- 2. Google Fonts (Inter for Headings, Roboto for Body) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
-
     <!-- 3. Feather Icons -->
     <script src="https://unpkg.com/feather-icons"></script>
+
+    <!-- ======== ANALYTICS ======== -->
+    <!-- Google tag (gtag.js) - UPDATED -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1LQEN74EVX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-1LQEN74EVX'); // <!-- UPDATED with your actual Google Analytics ID -->
+    </script>
+    
+    <!-- ======== STRUCTURED DATA (JSON-LD) ======== -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "RIEN Hub",
+      "url": "https://rienhub.com",
+      "logo": "https://rienhub.com/assets/logo.png",
+      "founder": {
+        "@type": "Person",
+        "name": "Amrin Amsyar Bin Za'aba"
+      },
+      "sameAs": [
+        "https://www.linkedin.com/company/rienhub",
+        "https://www.instagram.com/rienhub",
+        "https://twitter.com/rienhub"
+      ],
+      "description": "RIEN Hub — the innovation gateway of RIEN X. We connect technology, creativity, and mobility to build a smarter world.",
+      "foundingDate": "2025",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "43000 Kajang selangor",
+        "addressCountry": "Malaysia"
+      }
+    }
+    </script>
 
     <!-- 4. Tailwind Theme Configuration (Light Mode) -->
     <script>
@@ -438,8 +500,8 @@
                         </div>
                         <div class="md:col-span-2">
                             <h3 class="text-2xl font-bold text-accent-1 mb-2">A Note From Our Founder</h3>
-                            <p class="text-lg text-neutral-text leading-relaxed mb-4">"Founded by Amrin Amsyar Zaaba in Malaysia, RIEN Hub was built from a vision to make smart mobility and digital ecosystems accessible, scalable, and human-driven."</p>
-                            <p class="font-title text-primary text-lg font-semibold">Amrin Amsyar Zaaba</p>
+                            <p class="text-lg text-neutral-text leading-relaxed mb-4">"Founded by Amrin Amsyar Bin Za'aba in Malaysia, RIEN Hub was built from a vision to make smart mobility and digital ecosystems accessible, scalable, and human-driven."</p>
+                            <p class="font-title text-primary text-lg font-semibold">Amrin Amsyar Bin Za'aba</p> <!-- UPDATED NAME -->
                             <p class="text-accent-1 font-medium">Founder & CEO, RIEN X</p>
                         </div>
                     </div>
@@ -822,11 +884,12 @@
                 <!-- Column 3: Connect -->
                 <div>
                     <h4 class="text-xl font-bold mb-4">Connect</h4>
-                    <div class="flex justify-center md:justify-start gap-5">
-                        <a href="#" class="text-gray-500 hover:text-accent-1"><i data-feather="linkedin" class="w-6 h-6"></i></a>
-                        <a href="#" class="text-gray-500 hover:text-accent-1"><i data-feather="instagram" class="w-6 h-6"></i></a>
-                        <a href="#" class="text-gray-500 hover:text-accent-1"><i data-feather="youtube" class="w-6 h-6"></i></a>
-                    </div>
+                    <!-- UPDATED SOCIAL LINKS -->
+                    <ul class="space-y-2">
+                        <li><a href="https://linkedin.com/company/rienhub" target="_blank" rel="noopener noreferrer" class="text-gray-600 hover:text-accent-1">LinkedIn</a></li>
+                        <li><a href="https://instagram.com/rienhub" target="_blank" rel="noopener noreferrer" class="text-gray-600 hover:text-accent-1">Instagram</a></li>
+                        <li><a href="https://twitter.com/rienhub" target="_blank" rel="noopener noreferrer" class="text-gray-600 hover:text-accent-1">X (Twitter)</a></li>
+                    </ul>
                 </div>
             </div>
         </div>
